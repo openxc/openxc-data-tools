@@ -1,0 +1,13 @@
+### csv.py
+This script will slurp in a trace file and output a CSV formatted
+file with the timestamp as the first column and subsequent vehicle
+data keys as separate columns in undefined order.
+
+Usage: ./csv.py input_file.json output_file.csv
+
+### timeseries.py
+Given an input JSON file and a signal to graph, this script will plot
+a timeseries graph.
+
+Usage: ./timeseries.py input_file.json -y signal_name
+Example: ./timeseries.py aggressive-driving.json -y fuel_level
