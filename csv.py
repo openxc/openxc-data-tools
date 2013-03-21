@@ -35,10 +35,10 @@ def csv_row(timestamp, key, value, column_map):
     #Determine which column the key is in
     column_num = column_map[key]
 
-    print "Column num of " + key + " is " + str(column_num)
+    #print "Column num of " + key + " is " + str(column_num)
 
     #Timestamp is always column 0
-    ret_string = str(timestamp) + ","
+    ret_string = "%.3f" % timestamp + ","
     for i in range(1, len(column_map) + 1):
         if (i == column_num):
             #Place the value in the correct column
@@ -59,7 +59,7 @@ with open(input_file_name, 'r') as input_file:
             column_map[obj['name']] = current_column
             current_column += 1
 
-print column_map
+#print column_map
 
 #Open the input file and loop through a second time
 with open(input_file_name, 'r') as input_file,\
