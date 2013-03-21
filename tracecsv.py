@@ -19,16 +19,6 @@
 import json
 import sys
 
-if len(sys.argv) < 3:
-    sys.exit("Specify name of both an input file and an output file")
-
-input_file_name = sys.argv[1]
-output_file_name = sys.argv[2]
-
-current_column = 1 #The current column number. Column 0 is timestamp
-column_map = {}
-
-
 #csv_row returns a string with the value formatted in correct csv
 #order.    
 def csv_row(timestamp, key, value, column_map):
@@ -50,29 +40,41 @@ def csv_row(timestamp, key, value, column_map):
     #print "DEBUG: " + ret_string
     return ret_string
 
-#Open the input file and loop through
-with open(input_file_name, 'r') as input_file:
-    for line in input_file:
-        if not line.rstrip() : continue
-        obj = json.loads(line)
-        if not obj['name'] in column_map:
-            column_map[obj['name']] = current_column
-            current_column += 1
+def main():
+    if len(sys.argv) < 3:
+        sys.exit("Specify name of both an input file and an output file")
 
-#print column_map
+    input_file_name = sys.argv[1]
+    output_file_name = sys.argv[2]
 
-#Open the input file and loop through a second time
-with open(input_file_name, 'r') as input_file,\
-        open(output_file_name, 'w') as output_file:
-    #Print a header for the output file specifying column values
-    output_file.write("#timestamp," +\
-                          ','.join(sorted(column_map, key = column_map.get))\
-                          + "\n")
-    for line in input_file:
-        if not line.rstrip() : continue
-        obj = json.loads(line)
-        output_file.write(csv_row(obj['timestamp'],\
-                                      obj['name'],\
-                                      obj['value'],\
-                                      column_map) + "\n")
-    
+    current_column = 1 #The current column number. Column 0 is timestamp
+    column_map = {}
+
+    #Open the input file and loop through
+    with open(input_file_name, 'r') as input_file:
+        for line in input_file:
+            if not line.rstrip() : continue
+            obj = json.loads(line)
+            if not obj['name'] in column_map:
+                column_map[obj['name']] = current_column
+                current_column += 1
+
+    #print column_map
+
+    #Open the input file and loop through a second time
+    with open(input_file_name, 'r') as input_file,\
+            open(output_file_name, 'w') as output_file:
+        #Print a header for the output file specifying column values
+        output_file.write("#timestamp," +\
+                              ','.join(sorted(column_map, key = column_map.get))\
+                              + "\n")
+        for line in input_file:
+            if not line.rstrip() : continue
+            obj = json.loads(line)
+            output_file.write(csv_row(obj['timestamp'],\
+                                          obj['name'],\
+                                          obj['value'],\
+                                          column_map) + "\n")
+        
+if __name__ == "__main__":
+    main()
