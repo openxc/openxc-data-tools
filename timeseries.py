@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 
 #Go through an OpenXC trace file and plot a time series graph using
 #matplotlib

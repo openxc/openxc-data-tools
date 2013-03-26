@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 
 #This script will slurp in a trace file and output a CSV formatted
 #file with the timestamp as the first column and subsequent vehicle
@@ -7,7 +7,7 @@
 #TODO: This implementation is dead simple -- it will read through the
 #tracefile once to identify all unique keys and build a dictionary
 #mapping key names to column numbers.  It will then loop back through
-#the file to generate the CSV.  
+#the file to generate the CSV.
 
 #The next iteration will speculatively
 #read in some number of seconds of the tracefile and speculatively
@@ -20,7 +20,7 @@ import json
 import sys
 
 #csv_row returns a string with the value formatted in correct csv
-#order.    
+#order.
 def csv_row(timestamp, key, value, column_map):
     #Determine which column the key is in
     column_num = column_map[key]
@@ -36,7 +36,7 @@ def csv_row(timestamp, key, value, column_map):
             ret_string += str(value) + ","
         else:
             ret_string += ','
-            
+
     #print "DEBUG: " + ret_string
     return ret_string
 
@@ -75,6 +75,6 @@ def main():
                                           obj['name'],\
                                           obj['value'],\
                                           column_map) + "\n")
-        
+
 if __name__ == "__main__":
     main()
