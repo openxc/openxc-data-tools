@@ -11,3 +11,9 @@ a timeseries graph.
 
 Usage: ./timeseries.py input_file.json -y signal_name
 Example: ./timeseries.py aggressive-driving.json -y fuel_level
+
+### signals.py
+Given an input JSON file, this script will print out the list of 
+signals that were recorded in ascending order. 
+
+Usage: ./signals.py input_file.json
