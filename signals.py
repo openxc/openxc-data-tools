@@ -17,14 +17,18 @@ def main():
     args = parser.parse_args()
 
     input_file_name = args.input_file
-    
+
     signal_list = list()
-	
+
     with open(input_file_name, 'r') as input_file:
         for line in input_file:
             if not line.rstrip() : continue
-            obj = json.loads(line)
-			
+            try:
+                obj = json.loads(line)
+            except ValueError:
+                print("Skipping invalid JSON: %s" % line)
+                continue
+
             if obj['name'] not in signal_list:
                 signal_list.append(obj['name'])
 

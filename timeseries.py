@@ -30,7 +30,11 @@ def main():
     with open(input_file_name, 'r') as input_file:
         for line in input_file:
             if not line.rstrip() : continue
-            obj = json.loads(line)
+            try:
+                obj = json.loads(line)
+            except ValueError:
+                print("Skipping invalid JSON: %s" % line)
+                continue
 
             #if the parsed JSON object has the key we're looking for,
             #add the key's value to the y graph and the timestamp

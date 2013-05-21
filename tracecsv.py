@@ -54,7 +54,11 @@ def main():
     with open(input_file_name, 'r') as input_file:
         for line in input_file:
             if not line.rstrip() : continue
-            obj = json.loads(line)
+            try:
+                obj = json.loads(line)
+            except ValueError:
+                print("Skipping invalid JSON: %s" % line)
+                continue
             if not obj['name'] in column_map:
                 column_map[obj['name']] = current_column
                 current_column += 1
@@ -70,7 +74,11 @@ def main():
                               + "\n")
         for line in input_file:
             if not line.rstrip() : continue
-            obj = json.loads(line)
+            try:
+                obj = json.loads(line)
+            except ValueError:
+                print("Skipping invalid JSON: %s" % line)
+                continue
             output_file.write(csv_row(obj['timestamp'],\
                                           obj['name'],\
                                           obj['value'],\
