@@ -11,8 +11,7 @@ def main():
     #Set up the command line argument parser
     parser = argparse.ArgumentParser()
 
-    parser.add_argument("input_file",
-                        help = "name of the input file")
+    parser.add_argument("input_file", help = "name of the input file")
 
     args = parser.parse_args()
 
@@ -33,7 +32,7 @@ def main():
                 signal_list.append(obj['name'])
 
     signal_list.sort()
-    print "\n".join(signal_list)
+    print("\n".join(signal_list))
 
 if __name__ == "__main__":
     main()
