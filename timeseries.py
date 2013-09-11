@@ -16,12 +16,16 @@ def main():
                         help = "name of the input file")
     parser.add_argument("-y",
                         help = "the key to use for the function being plotted")
+    parser.add_argument("-x",
+                        help = "the key to use for the function being plotted",
+                        default=None)
 
     args = parser.parse_args()
 
     input_file_name = args.input_file
 
     y_key = str(args.y)
+    x_key = args.x
 
     #initialize the x axis and function to be plotted
     x = []
@@ -41,11 +45,15 @@ def main():
             #to the x list
             if obj['name'] == y_key:
                 y.append(obj['value'])
-                x.append(obj['timestamp'])
+                if x_key is None:
+                    x.append(obj['timestamp'])
+            if obj['name'] == x_key:
+                x.append(obj['value'])
 
         autoscale(True, 'both')
-        plot(x, y, label = y_key)
-        legend(loc='upper left')
+        xlabel(x_key or 'timestamp')
+        ylabel(y_key)
+        plot(x, y, 'ro')
         show()
 
 if __name__ == "__main__":
